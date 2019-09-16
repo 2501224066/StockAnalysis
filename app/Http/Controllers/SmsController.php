@@ -22,9 +22,7 @@ class SmsController extends Controller
             'phone' => ['required', 'numeric', 'regex:/^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\\d{8}$/'],
         ]);
 
-        $code = randStr(6);
-        Cache::put($request.'_CODE', $code, 5);
-        $this->smsService->send($request->phone, $code);
+        $this->smsService->send($request);
 
         return $this->success();
     }

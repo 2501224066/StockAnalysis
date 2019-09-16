@@ -109,6 +109,13 @@ return [
     */
     /** 此处可自定义验证参数转中文的提示**/
     'attributes' => [
-        'phone' => '手机号'
+        'phone' => '手机号',
+        'sms_code' => '验证码',
+        'password' => '密码',
+        'password_confirmation' => '重复密码',
+        'register_token' => '登录TOKEN',
+        'keyword' => '关键字',
+        'shares_code' => '股票编码',
+        'card_code' => '卡编号'
     ]
 ];

@@ -4,21 +4,28 @@
 |--------------------------------------------------------------------------
 | 项目接口
 |--------------------------------------------------------------------------
-| restful 接口设计,示例:
-|
-| 方法  	        路径                 动作         路由名称
-| GET 	        /article 	        index 	    article.index
-| GET 	        /article/create 	create 	    article.create
-| POST 	        /article 	        store 	    article.store
-| GET 	        /article/{id} 	    show 	    article.show
-| GET 	        /article/{id}/edit 	edit 	    article.edit
-| PUT/PATCH     /article/{id} 	    update 	    article.update
-| DELETE 	    /article/{id} 	    destroy 	article.destroy
-|
+| restful 接口设计
 */
 
-$router->group(['prefix' => 'api'], function () use ($router) {
-    $router->post('/user', 'UserController@createUser');
+use Illuminate\Support\Facades\Artisan;
 
-    $router->get('/sms', 'SmsController@index');
+$router->group(['prefix' => 'api'], function () use ($router) {
+
+    $router->get('/sms', 'SmsController@index'); // 发送手机验证码
+
+    $router->get('/user/checkPhone', 'UserController@checkPhone'); // 检查手机号
+    $router->post('/user', 'UserController@createUser'); // 注册
+    $router->post('/user/login', 'UserController@login'); // 登录
+
+    $router->post('/card/{grade}/{count}', function ($grade, $count) {
+        Artisan::call('card:create', ['grade' => $grade, 'count' => $count]);
+    }); // 创建卡
+
+    $router->group(['middleware' => 'checkLoginToken'], function () use ($router) {
+
+        $router->get('/shares/select', 'SharesController@select'); // 搜索股票
+        $router->get('/shares', 'SharesController@sharesInfo'); // 股票信息
+
+        $router->get('/card', 'CardController@useCard'); // 使用卡
+    });
 });
