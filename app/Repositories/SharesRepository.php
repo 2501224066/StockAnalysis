@@ -26,6 +26,7 @@ class SharesRepository
     {
         return $this->shares
             ->whereRaw('(code like ? or simple_code like ? or name like ?)', ["%{$keyword}%", "%{$keyword}%", "%{$keyword}%"])
+            ->limit(10)
             ->get(['name', 'code']);
     }
 }
