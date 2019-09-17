@@ -47,8 +47,8 @@ class SharesService
             $shares->today_start = '-';
             $shares->yesterday_end = '-';
 
-            $code = $shares->code;
-            $data = file_get_contents('http://hq.sinajs.cn/list=sh' . substr($code, 0, 6));
+            $shares_code = $this->sharesCodeTrans($shares->code);
+            $data = file_get_contents('http://hq.sinajs.cn/list=' . $shares_code);
             if ($data) {
                 $data_arr = explode(',', $data);
                 if (isset($data_arr[1])) {
@@ -64,5 +64,13 @@ class SharesService
             }
         }
         return $shares_arr;
+    }
+
+    // 股票编码转换
+    public function sharesCodeTrans($shares_code)
+    {
+        $left = substr($shares_code, 0, 6);
+        $right = strtolower(substr($shares_code, 7, 9));
+        return $right.$left;
     }
 }
