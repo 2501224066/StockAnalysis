@@ -3,7 +3,9 @@
 namespace App\Http\Services;
 
 use App\Http\Repositories\UserRepository;
+use App\Http\Repositories\UserSelectRepository;
 use App\Http\Repositories\SystemSettingRepository;
+use App\Http\Repositories\AgentRepository;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -14,13 +16,19 @@ class UserService
 
     protected $userRepository;
     protected $systemSettingRepository;
+    protected $agentRepository;
+    protected $userSelectRepository;
 
     public function __construct(
         UserRepository $userRepository,
-        SystemSettingRepository $systemSettingRepository
+        UserSelectRepository $userSelectRepository,
+        SystemSettingRepository $systemSettingRepository,
+        AgentRepository $agentRepository
     ) {
         $this->userRepository = $userRepository;
         $this->systemSettingRepository = $systemSettingRepository;
+        $this->agentRepository = $agentRepository;
+        $this->userSelectRepository = $userSelectRepository;
     }
 
     // 注册
@@ -28,11 +36,38 @@ class UserService
     {
         $this->checkCode($request->phone . '_REGISTER_TOKEN', $request->register_token, '注册TOKEN');
         $user_id = $this->userRepository->create($request->phone, $request->password);
-        
-        if ($request->invite_code != null) {
-            $this->invite(htmlspecialchars($request->invite_code));
+
+        if ($request->user_invite_code != null) {
+            $this->userInvite($user_id, htmlspecialchars($request->user_invite_code));
+        }
+        if ($request->agent_invite_code != null) {
+            $this->agentInvite($user_id, htmlspecialchars($request->agent_invite_code));
         }
         return $user_id;
+    }
+
+    // 用户邀请
+    public function userInvite($user_id, $user_invite_code)
+    {
+        // 邀请人获得邀请奖励
+        $invite_user_info = $this->userRepository->first(['invite_code' => $user_invite_code]);
+        if ($invite_user_info) {
+            $this->inviteReward($invite_user_info->user_id);
+        }
+
+        // 被邀请人绑定邀请人上级代理
+        if ($invite_user_info->agent_id) {
+            $this->userRepository->bindAgent($user_id, $invite_user_info->agent_id);
+        }
+    }
+
+    // 代理邀请
+    public function agentInvite($user_id, $agent_invite_code)
+    {
+        $agent_info = $this->agentRepository->first(['invite_code' => $agent_invite_code]);
+        if ($agent_info) {
+            $this->userRepository->bindAgent($user_id, $agent_info->agent_id);
+        }
     }
 
     // 登录
@@ -82,14 +117,11 @@ class UserService
         return $this->userRepository->selectNumDown($request->user->user_id);
     }
 
-    // 邀请增加查询次数
-    public function invite($invite_code)
+    // 邀请奖励(增加查询次数)
+    public function inviteReward($user_id)
     {
-        $invite_user = $this->userRepository->first(['invite_code' => htmlspecialchars($invite_code)]);
-        if($invite_user){
-            $invite_select_num = $this->systemSettingRepository->val('invite_select_num');
-            $this->userRepository->selectNumUp( $invite_user->uid, $invite_select_num);
-        }
+        $invite_select_num = $this->systemSettingRepository->val('invite_select_num');
+        $this->userRepository->selectNumUp($user_id, $invite_select_num);
     }
 
     // 重置密码
@@ -98,5 +130,14 @@ class UserService
         $this->checkCode($request->phone . '_SMS_CODE', $request->sms_code, '验证码');
         $user_info = $this->userRepository->first(['phone' => $request->phone]);
         $this->userRepository->editPass($user_info->user_id, $request->password);
+    }
+
+    // 用户信息
+    public function getUserInfo(Request $request)
+    {
+        $user_info = $request->user;
+        $user_info->selected_num = $this->userSelectRepository->selectedCount($request->user->user_id);
+        $user_info->agent_info = $this->agentRepository->first(['agent_id' => $user_info->agent_id]);
+        return $user_info;
     }
 }

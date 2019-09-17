@@ -31,6 +31,8 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
  * @mixin \Eloquent
  * @property string $password 密码
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePassword($value)
+ * @property string $level 等级
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereLevel($value)
  */
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {

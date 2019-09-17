@@ -34,4 +34,10 @@ class UserLevelService
             $user_info->save();
         }
     }
+
+    // 所有等级
+    public function getLevel()
+    {
+        return $this->userLevelRepository->all();
+    }
 }

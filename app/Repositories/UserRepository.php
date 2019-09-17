@@ -69,9 +69,15 @@ class UserRepository
     // 修改密码
     public function editPass($user_id, $password)
     {
-        $d = $this->user->where('user_id', $user_id)->update(['password'=> Hash::make($password)]);
+        $d = $this->user->where('user_id', $user_id)->update(['password' => Hash::make($password)]);
         if (!$d) {
             throw new Exception('保存失败');
         }
+    }
+
+    // 绑定代理
+    public function bindAgent($user_id, $agent_id)
+    {
+        $this->user->where('user_id', $user_id)->update(['agent_id' => $agent_id]);
     }
 }
