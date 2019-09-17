@@ -18,7 +18,7 @@ class SharesService
         SharesRepository $sharesRepository,
         UserRepository $userRepository,
         UserSelectRepository $userSelectRepository
-    ){
+    ) {
         $this->sharesRepository = $sharesRepository;
         $this->userRepository = $userRepository;
         $this->userSelectRepository = $userSelectRepository;
@@ -51,8 +51,16 @@ class SharesService
             $data = file_get_contents('http://hq.sinajs.cn/list=sh' . substr($code, 0, 6));
             if ($data) {
                 $data_arr = explode(',', $data);
-                $shares->today_start = $data_arr[1]; // 今开
-                $shares->yesterday_end = $data_arr[2]; // 昨收
+                if (isset($data_arr[1])) {
+                    $shares->today_start = $data_arr[1]; // 今开
+                } else {
+                    $shares->today_start = '-';
+                }
+                if (isset($data_arr[2])) {
+                    $shares->yesterday_end = $data_arr[2]; // 昨收
+                } else {
+                    $shares->yesterday_end = '-';
+                }
             }
         }
         return $shares_arr;
