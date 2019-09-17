@@ -6,25 +6,12 @@ use Closure;
 
 class CorsMiddleware
 {
-    public function handle($request, Closure $next)
-    {
-        if ($request->getMethod() == "OPTIONS") {
-            $allowOrigin = ['*'];
-            $Origin = $request->header("Origin");
-            if (in_array('*', $allowOrigin) || in_array($Origin, $allowOrigin)) {
-                return response()->json('ok', 200, [
-                    # 下面参数视request中header而定
-                    'Access-Control-Allow-Origin' => $Origin,
-                    'Access-Control-Allow-Headers' => 'x-token',
-                    'Access-Control-Allow-Methods' => 'GET,POST,OPTIONS,DELECT'
-                ]);
-            } else {
-                return response()->json('fail', 405);
-            }
-        }
-
+    public function handle($request, Closure $next) {
         $response = $next($request);
         $response->header('Access-Control-Allow-Origin', '*');
+        $response->header('Access-Control-Allow-Headers', 'Origin, Content-Type, Cookie, Accept');
+        $response->header('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, OPTIONS');
+        $response->header('Access-Control-Allow-Credentials', 'false');
         return $response;
     }
 }

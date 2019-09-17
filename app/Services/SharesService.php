@@ -66,7 +66,7 @@ class SharesService
         return $shares_arr;
     }
 
-    // 股票编码转换
+    // 股票编码转换 601020.SH -> sh601020
     public function sharesCodeTrans($shares_code)
     {
         $left = substr($shares_code, 0, 6);

@@ -45,7 +45,7 @@ class SharesController extends Controller
         $this->userLevelService->setLevel($request->user->user_id);
         return $this->success([
             'surplus_select_num' => $surplus_select_num,
-            'with_invite' => 'i='.$request->user->invite_code,
+            'invite_code' => $request->user->invite_code,
             'share_info' => $share_info
         ]);
     }

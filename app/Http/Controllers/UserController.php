@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repositories\UserSelectRepository;
 use App\Http\Services\UserService;
 use App\Http\Services\UserLevelService;
 use Illuminate\Http\Request;
@@ -11,13 +12,16 @@ class UserController extends Controller
 
     protected $userService;
     protected $userLevelService;
+    protected $userSelectRepository;
 
     public function __construct(
         UserService $userService,
-        UserLevelService $userLevelService
+        UserLevelService $userLevelService,
+        UserSelectRepository $userSelectRepository
     ){
         $this->userService = $userService;
         $this->userLevelService = $userLevelService;
+        $this->userSelectRepository = $userSelectRepository;
     }
 
     // 检查手机号
@@ -72,5 +76,12 @@ class UserController extends Controller
 
         $this->userService->resetPass($request);
         return $this->success();
+    }
+    
+    // 用户信息
+    public function userInfo(Request $request)
+    {
+        $request->user->selected_num = $this->userSelectRepository->selectCount($request->user->user_id);
+        return $this->success($request->user);
     }
 }
