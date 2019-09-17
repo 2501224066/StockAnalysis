@@ -23,18 +23,21 @@ class UserRepository
     }
 
     // 创建用户
-    public function create($phone, $password, $select_num)
+    public function create($phone, $password)
     {
-        $d = $this->user->create([
+        $user_id = $this->user->insertGetId([
             'phone' => $phone,
             'password' => Hash::make($password),
-            'select_num' => $select_num,
-            'invite_code' => randStr(30, true)
+            'invite_code' => randStr(30, true),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
         ]);
 
-        if (!$d) {
+        if (!$user_id) {
             throw new Exception('注册失败');
         }
+
+        return $user_id;
     }
 
     // 查询次数减少

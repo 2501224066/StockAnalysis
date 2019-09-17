@@ -27,12 +27,12 @@ class UserService
     public function register(Request $request)
     {
         $this->checkCode($request->phone . '_REGISTER_TOKEN', $request->register_token, '注册TOKEN');
-        $default_select_num = $this->systemSettingRepository->val('default_select_num');
-        $this->userRepository->create($request->phone, $request->password, $default_select_num);
-
+        $user_id = $this->userRepository->create($request->phone, $request->password);
+        
         if ($request->invite_code != null) {
             $this->invite(htmlspecialchars($request->invite_code));
         }
+        return $user_id;
     }
 
     // 登录

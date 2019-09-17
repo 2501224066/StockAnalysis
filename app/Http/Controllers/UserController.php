@@ -3,16 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\UserService;
+use App\Http\Services\UserLevelService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
 
     protected $userService;
+    protected $userLevelService;
 
-    public function __construct(UserService $userService)
-    {
+    public function __construct(
+        UserService $userService,
+        UserLevelService $userLevelService
+    ){
         $this->userService = $userService;
+        $this->userLevelService = $userLevelService;
     }
 
     // 检查手机号
@@ -38,7 +43,8 @@ class UserController extends Controller
             'invite_code' => ['nullable', 'present']
         ]);
 
-        $this->userService->register($request);
+        $user_id = $this->userService->register($request);
+        $this->userLevelService->setLevel($user_id);
         return $this->success();
     }
 

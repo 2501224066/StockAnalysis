@@ -22,4 +22,10 @@ class UserSelectRepository
             'shares_code' => $shares_code
         ]);
     }
+
+    // 用户已查询次数
+    public function selectCount($user_id)
+    {
+        return $this->userSelect->where('user_id', $user_id)->count();
+    }
 }

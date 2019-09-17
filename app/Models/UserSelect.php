@@ -23,6 +23,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserSelect whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserSelect whereUserId($value)
  * @mixin \Eloquent
+ * @property string $shares_name 股票名称
+ * @property string $shares_code 股票编码
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserSelect whereSharesCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserSelect whereSharesName($value)
  */
 class UserSelect extends Model{
 
