@@ -57,9 +57,18 @@ class UserRepository
     public function selectNumUp($user_id, $num)
     {
         $user = $this->first(['user_id' => $user_id]);
-        
+
         $surplus_select_num = $user->select_num + $num;
         $user->select_num =  $surplus_select_num;
         $user->save();
+    }
+
+    // 修改密码
+    public function editPass($user_id, $password)
+    {
+        $d = $this->user->where('user_id', $user_id)->update(['password'=> Hash::make($password)]);
+        if (!$d) {
+            throw new Exception('保存失败');
+        }
     }
 }

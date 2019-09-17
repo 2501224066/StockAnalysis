@@ -5,19 +5,23 @@ namespace App\Http\Services;
 use Illuminate\Http\Request;
 use App\Http\Repositories\SharesRepository;
 use App\Http\Repositories\UserRepository;
+use App\Http\Repositories\UserSelectRepository;
 
 class SharesService
 {
 
     protected $sharesRepository;
     protected $userRepository;
+    protected $userSelectRepository;
 
     public function __construct(
         SharesRepository $sharesRepository,
-        UserRepository $userRepository   
+        UserRepository $userRepository,
+        UserSelectRepository $userSelectRepository
     ){
         $this->sharesRepository = $sharesRepository;
         $this->userRepository = $userRepository;
+        $this->userSelectRepository = $userSelectRepository;
     }
 
     // 搜索
@@ -31,7 +35,9 @@ class SharesService
     // 股票信息
     public function shareInfo(Request $request)
     {
-        return $this->sharesRepository->first(['code' => $request->shares_code]);
+        $shares_info = $this->sharesRepository->first(['code' => $request->shares_code]);
+        $this->userSelectRepository->recordSelect($request->user->user_id, $shares_info->name, $shares_info->code);
+        return $shares_info;
     }
 
     // 添加实时数据

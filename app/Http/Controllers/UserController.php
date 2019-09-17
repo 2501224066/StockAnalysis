@@ -53,4 +53,18 @@ class UserController extends Controller
         $login_token = $this->userService->login($request);
         return $this->success(['login_token' => $login_token]);
     }
+
+    // 重置密码
+    public function resetPass(Request $request)
+    {
+        $this->verify($request, [
+            'phone' => ['required', 'numeric', 'regex:/^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\\d{8}$/', 'exists:sa_user,phone'],  
+            'password' => ['required', 'between:6,16', 'alpha_num', 'confirmed'],
+            'password_confirmation' => ['required'],
+            'sms_code' => ['required', 'numeric']
+        ]);
+
+        $this->userService->resetPass($request);
+        return $this->success();
+    }
 }

@@ -91,4 +91,12 @@ class UserService
             $this->userRepository->selectNumUp( $invite_user->uid, $invite_select_num);
         }
     }
+
+    // 重置密码
+    public function resetPass(Request $request)
+    {
+        $this->checkCode($request->phone . '_SMS_CODE', $request->sms_code, '验证码');
+        $user_info = $this->userRepository->first(['phone' => $request->phone]);
+        $this->userRepository->editPass($user_info->user_id, $request->password);
+    }
 }

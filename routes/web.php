@@ -16,6 +16,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('/user/checkPhone', 'UserController@checkPhone'); // 检查手机号
     $router->post('/user', 'UserController@createUser'); // 注册
     $router->post('/user/login', 'UserController@login'); // 登录
+    $router->post('/user/resetPass', 'UserController@resetPass'); // 重置密码
 
     $router->post('/card/{grade}/{count}', function ($grade, $count) {
         Artisan::call('card:create', ['grade' => $grade, 'count' => $count]);
