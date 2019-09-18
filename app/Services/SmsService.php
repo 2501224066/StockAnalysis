@@ -10,22 +10,25 @@ use Mrgoon\AliSms\AliSms;
 class SmsService
 {
 
-    private $sms;
+    protected $sms;
     protected $cardRepository;
+    protected $cache;
 
     public function __construct(
         AliSms $sms,
-        CardRepository $cardRepository
+        CardRepository $cardRepository,
+        Cache $cache
     ){
         $this->sms = $sms;
         $this->cardRepository = $cardRepository;
+        $this->cache = $cache;
     }
 
     // 发送短信
     public function send(Request $request)
     {
         $sms_code = randStr(6);
-        Cache::put($request->phone . '_SMS_CODE', $sms_code, 300);
+        $this->cache->put($request->phone . '_SMS_CODE', $sms_code, 300);
 
         $this->sms->sendSms($request->phone, config('aliyunsms.verify_code_template'), ['code' => $sms_code], [
             'access_key' => config('aliyunsms.access_key'),

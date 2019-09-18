@@ -6,7 +6,7 @@ use Closure;
 use Exception;
 use App\Http\Repositories\UserRepository;
 
-class CheckLoginToken
+class CheckUserLoginToken
 {
 
     protected $userRepository;
@@ -17,7 +17,7 @@ class CheckLoginToken
     }
 
 
-    // 验证登录token
+    // 验证用户登录token
     public function handle($request, Closure $next)
     {
         $token = $request->bearerToken();
@@ -33,7 +33,7 @@ class CheckLoginToken
 
         $user_info = $this->userRepository->first(['user_id' => $user_id]);
         if (!$user_info) {
-            throw new Exception('用户信息未找到，请重新登录');
+            throw new Exception('信息未找到，请重新登录');
         }
 
         $request->merge(['user' => $user_info]);

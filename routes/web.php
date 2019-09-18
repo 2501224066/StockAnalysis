@@ -20,6 +20,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->get('/user_level', 'UserLevelController@index'); // 等级权益
 
+    $router->post('/agent/login', 'AgentController@login'); // 代理登录
+
     $router->post('/card/{grade}/{count}', function ($grade, $count) {
         Artisan::call('card:create', ['grade' => $grade, 'count' => $count]);
     }); // 创建卡

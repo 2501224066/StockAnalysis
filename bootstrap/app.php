@@ -63,7 +63,8 @@ $app->middleware([
 ]);
 
 $app->routeMiddleware([
-    'checkLoginToken' => App\Http\Middleware\CheckLoginToken::class,
+    'checkUserLoginToken' => App\Http\Middleware\CheckUserLoginToken::class,
+    'checkAgentLoginToken' => App\Http\Middleware\CheckUserLoginToken::class,
 ]);
 
 /*
