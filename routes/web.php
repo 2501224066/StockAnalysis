@@ -26,12 +26,16 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         Artisan::call('card:create', ['grade' => $grade, 'count' => $count]);
     }); // 创建卡
 
-    $router->group(['middleware' => 'checkLoginToken'], function () use ($router) {
+    $router->group(['middleware' => 'checkUserLoginToken'], function () use ($router) {
         $router->get('/user', 'UserController@userInfo'); // 用户信息
 
         $router->get('/shares/select', 'SharesController@select'); // 搜索股票
         $router->get('/shares', 'SharesController@sharesInfo'); // 股票信息
 
         $router->get('/card', 'CardController@useCard'); // 使用卡
+    });
+
+    $router->group(['middleware' => 'checkAgentLoginToken'], function () use ($router) {
+       
     });
 });
