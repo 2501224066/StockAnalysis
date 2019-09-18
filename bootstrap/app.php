@@ -22,6 +22,7 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->configure('aliyunsms'); // *阿里云短信配置
+$app->configure('services'); // *服务配置
 
 $app->withFacades();
 $app->withEloquent();
@@ -59,12 +60,12 @@ $app->singleton(
 */
 
 $app->middleware([
-    App\Http\Middleware\CorsMiddleware::class
+    App\Http\Middleware\CorsMiddleware::class // *跨域中间件
 ]);
 
 $app->routeMiddleware([
-    'checkUserLoginToken' => App\Http\Middleware\CheckUserLoginToken::class,
-    'checkAgentLoginToken' => App\Http\Middleware\CheckAgentLoginToken::class,
+    'checkUserLoginToken' => App\Http\Middleware\CheckUserLoginToken::class, // *检查用户登录中间件
+    'checkAgentLoginToken' => App\Http\Middleware\CheckAgentLoginToken::class, // *检查代理登录中间件
 ]);
 
 /*

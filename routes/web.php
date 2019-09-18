@@ -38,5 +38,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->group(['middleware' => 'checkAgentLoginToken'], function () use ($router) {
         $router->get('/agent', 'AgentController@agentInfo'); // 代理信息
         $router->get('/agent/hasUser', 'AgentController@hasUser'); // 代理拥有用户
+
+        $router->get('/user_select', 'UserSelectController@index'); // 用户查询记录
     });
 });

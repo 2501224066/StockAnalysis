@@ -28,4 +28,18 @@ class UserSelectRepository
     {
         return $this->userSelect->where('user_id', $user_id)->count();
     }
+
+    // 用户查询记录
+    public function userSelectRecord($user_id, $len)
+    {
+        $query = $this->userSelect->where('user_id', $user_id)
+        ->orderBy('created_at', 'DESC')
+        ->select('shares_name', 'shares_code', 'created_at');
+        
+        if($len){
+            return $query->paginate();
+        }else{
+            return $query->limit($len)->get();
+        }
+    }
 }
