@@ -6,7 +6,7 @@ use Closure;
 use Exception;
 use App\Http\Repositories\AgentRepository;
 
-class CheckUserLoginToken
+class CheckAgentLoginToken
 {
 
     protected $agentRepository;

@@ -80,4 +80,18 @@ class UserRepository
     {
         $this->user->where('user_id', $user_id)->update(['agent_id' => $agent_id]);
     }
+
+    // 属于代理用户统计
+    public function belongAgentCount($agent_id)
+    {
+        return $this->user->where('agent_id', $agent_id)->count();
+    }
+
+    // 属于代理用户
+    public function belongAgent($agent_id)
+    {
+        return $this->user->where('agent_id', $agent_id)
+            ->select('phone', 'created_at')
+            ->paginate();
+    }
 }
