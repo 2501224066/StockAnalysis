@@ -26,7 +26,7 @@ class UserLevelService
     public function setLevel($user_id)
     {
         $user_info = $this->userRepository->first(['user_id'=>$user_id]);
-        $selected_num = $this->userSelectRepository->selectCount($user_id);
+        $selected_num = $this->userSelectRepository->selectedCount($user_id);
         $level_info = $this->userLevelRepository->getLevel($selected_num);
         if( ($user_info->level==null) || ($level_info->level != $user_info->level) ){
             $user_info->level = $level_info->level;
