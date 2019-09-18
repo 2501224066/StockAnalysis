@@ -9,6 +9,7 @@
 
 use Illuminate\Support\Facades\Artisan;
 
+// 外部接口
 $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->get('/sms', 'SmsController@index'); // 发送手机验证码
@@ -22,23 +23,30 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->post('/agent/login', 'AgentController@login'); // 代理登录
 
-    $router->post('/card/{grade}/{count}', function ($grade, $count) {
-        Artisan::call('card:create', ['grade' => $grade, 'count' => $count]);
-    }); // 创建卡
-
     $router->group(['middleware' => 'checkUserLoginToken'], function () use ($router) {
         $router->get('/user', 'UserController@userInfo'); // 用户信息
 
         $router->get('/shares/select', 'SharesController@select'); // 搜索股票
         $router->get('/shares', 'SharesController@sharesInfo'); // 股票信息
 
-        $router->get('/card', 'CardController@useCard'); // 使用卡
+        $router->get('/card', 'CardController@useCard'); // 用户使用卡
+        $router->post('/card', 'CardController@createCard'); // 用户创建卡
     });
 
     $router->group(['middleware' => 'checkAgentLoginToken'], function () use ($router) {
         $router->get('/agent', 'AgentController@agentInfo'); // 代理信息
         $router->get('/agent/hasUser', 'AgentController@hasUser'); // 代理拥有用户
 
-        $router->get('/user_select', 'UserSelectController@index'); // 用户查询记录
+        $router->get('/user_select', 'UserSelectController@index'); // 代理获取用户查询记录
+    });
+});
+
+
+
+//内部接口
+$router->group(['prefix' => 'system'], function () use ($router) {
+
+    $router->post('/card/{grade}/{count}', function ($grade, $count) { // 系统创建卡
+        Artisan::call('card:create', ['grade' => $grade, 'count' => $count]);
     });
 });
