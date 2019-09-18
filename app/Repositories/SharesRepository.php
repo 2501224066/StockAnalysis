@@ -17,7 +17,21 @@ class SharesRepository
     public function first($where)
     {
         return $this->shares->where($where)
-            ->with(['profit', 'profitGrowthRate', 'revenue', 'revenueGrowthRate', 'salesGrossMargin'])
+            ->with(['profit' => function ($query) {
+                $query->orderBy('time_node', 'DESC')->limit(12);
+            }])
+            ->with(['profitGrowthRate' => function ($query) {
+                $query->orderBy('time_node', 'DESC')->limit(12);
+            }])
+            ->with(['revenue' => function ($query) {
+                $query->orderBy('time_node', 'DESC')->limit(12);
+            }])
+            ->with(['revenueGrowthRate' => function ($query) {
+                $query->orderBy('time_node', 'DESC')->limit(12);
+            }])
+            ->with(['salesGrossMargin' => function ($query) {
+                $query->orderBy('time_node', 'DESC')->limit(12);
+            }])
             ->first();
     }
 

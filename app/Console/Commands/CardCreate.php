@@ -41,6 +41,7 @@ class CardCreate extends Command
 
             $card_code = $this->getCardCode();
             $this->card->create([
+                'create_type' => 'system',
                 'code' => $card_code,
                 'add_select_num' => $add_select_num
             ]);
