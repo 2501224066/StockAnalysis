@@ -140,6 +140,7 @@ class UserService
         $user_info = $request->user;
         $user_info->selected_num = $this->userSelectRepository->selectedCount($request->user->user_id);
         $user_info->agent_info = $this->agentRepository->first(['agent_id' => $user_info->agent_id]);
+        $user_info->card_buy_way = $this->systemSettingRepository->cardBuyWay();
         return $user_info;
     }
 }
