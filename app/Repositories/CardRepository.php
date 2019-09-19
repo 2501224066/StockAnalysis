@@ -58,4 +58,18 @@ class CardRepository
 
         return $card_code;
     }
+
+    // 用户创建卡记录
+    public function createCardRecord($user_id, $len)
+    {
+        $query = $this->card->where('create_user_id', $user_id)
+        ->orderBy('created_at', 'DESC')
+        ->select('code', 'status', 'add_select_num', 'created_at');
+        
+        if($len){
+            return $query->limit($len)->get();
+        }else{
+            return $query->paginate();
+        }
+    }
 }

@@ -29,6 +29,4 @@ class Card extends Model{
     protected $table = "sa_card";
 
     protected $guarded = [];
- 
-    public $timestamps = false;
 }

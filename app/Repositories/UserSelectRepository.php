@@ -33,13 +33,13 @@ class UserSelectRepository
     public function userSelectRecord($user_id, $len)
     {
         $query = $this->userSelect->where('user_id', $user_id)
-        ->orderBy('created_at', 'DESC')
-        ->select('shares_name', 'shares_code', 'created_at');
-        
-        if($len){
-            return $query->paginate();
-        }else{
+            ->orderBy('created_at', 'DESC')
+            ->select('shares_name', 'shares_code', 'created_at');
+
+        if ($len) {
             return $query->limit($len)->get();
+        } else {
+            return $query->paginate();
         }
     }
 }

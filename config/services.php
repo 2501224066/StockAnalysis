@@ -16,6 +16,9 @@ return [
     
     'agent' => [
         'get_user_select_record_num' => env('AGENT_GET_USER_SELECT_RECORD_NUM')
-    ]
+    ],
 
+    'user' => [
+        'get_create_card_record_num' => env('USER_GET_CREATE_CARD_RECORD_NUM')
+    ]
 ];

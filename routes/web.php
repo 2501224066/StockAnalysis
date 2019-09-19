@@ -32,6 +32,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
         $router->get('/card', 'CardController@useCard'); // 用户使用卡
         $router->post('/card', 'CardController@createCard'); // 用户创建卡
+        $router->get('/card/createCardRecord', 'CardController@createCardRecord'); // 用户创建卡记录
     });
 
     $router->group(['middleware' => 'checkAgentLoginToken'], function () use ($router) {

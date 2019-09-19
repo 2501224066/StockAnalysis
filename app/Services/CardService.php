@@ -47,4 +47,10 @@ class CardService
         $this->userRepository->selectNumDown($request->user->user_id, $request->create_num);
         return $this->cardRepository->createCard($request->user->user_id, $request->create_num);
     }
+    
+    // 用户创建卡记录
+    public function createCardRecord(Request $request)
+    {
+        return $this->cardRepository->createCardRecord($request->user->user_id, config('services.user.get_create_card_record_num'));
+    }
 }

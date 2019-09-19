@@ -37,4 +37,11 @@ class CardController extends Controller
         return $this->success(['card_code' => $card_code]);
     }
 
+    // 用户创建卡记录
+    public function createCardRecord(Request $request)
+    {
+        $create_card_record = $this->cardService->createCardRecord($request);
+        return $this->success(['create_card_record' => $create_card_record]);
+    }
+
 }
