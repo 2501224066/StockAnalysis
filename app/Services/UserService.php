@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
+
 class UserService
 {
 
@@ -48,10 +49,12 @@ class UserService
     // 用户邀请
     public function userInvite($user_id, $user_invite_code)
     {
-        // 邀请人获得邀请奖励
         $invite_user_info = $this->userRepository->first(['invite_code' => $user_invite_code]);
         if ($invite_user_info) {
+            // 邀请人获得邀请奖励
             $this->inviteReward($invite_user_info->user_id);
+            // 被邀请人获得邀请奖励
+            $this->inviteReward($user_id);
         }
 
         // 被邀请人绑定邀请人上级代理

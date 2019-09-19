@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Services\SmsService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 
 class SmsController extends Controller
 {
