@@ -22,7 +22,6 @@ class SmsController extends Controller
         ]);
 
         $this->smsService->send($request);
-
         return $this->success();
     }
 }

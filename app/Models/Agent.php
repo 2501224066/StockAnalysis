@@ -26,6 +26,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Agent whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Agent whereWeixin($value)
  * @mixin \Eloquent
+ * @property string $weixin_qr 微信二维码
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Agent whereWeixinQr($value)
  */
 class Agent extends Model{
 
