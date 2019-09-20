@@ -6,19 +6,24 @@ use App\Http\Repositories\AgentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Repositories\UserRepository;
+use App\Http\Repositories\CardRepository;
+use Exception;
 
 class AgentService
 {
 
     protected $agentRepository;
     protected $userRepository;
+    protected $cardRepository;
 
     public function __construct(
         AgentRepository $agentRepository,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        CardRepository $cardRepository
     ) {
         $this->agentRepository = $agentRepository;
         $this->userRepository = $userRepository;
+        $this->cardRepository = $cardRepository;
     }
 
     // 登录
@@ -49,6 +54,14 @@ class AgentService
     // 拥有用户
     public function hasUser(Request $request)
     {
-        return $this->userRepository->belongAgent($request->agent->agent_id);
+        $belongAgent = $this->userRepository->belongAgent($request->agent->agent_id);
+
+        // 添加使用卡获得总次数
+        foreach($belongAgent as &$v){
+            $user_info = $this->userRepository->first(['phone'=>$v->phone]);
+            $v->use_card_get_select_num = $this->cardRepository->useCardGetSelectNum($user_info->user_id);
+        }
+
+        return $belongAgent;
     }
 }

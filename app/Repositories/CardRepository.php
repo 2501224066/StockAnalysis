@@ -72,4 +72,10 @@ class CardRepository
             return $query->paginate();
         }
     }
+
+    // 用户使用卡充值总查询次数
+    public function useCardGetSelectNum($user_id)
+    {
+        return $this->card->where('use_user_id', $user_id)->sum('add_select_num');
+    }
 }
