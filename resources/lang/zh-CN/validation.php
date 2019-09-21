@@ -116,6 +116,7 @@ return [
         'register_token' => '登录TOKEN',
         'keyword' => '关键字',
         'shares_code' => '股票编码',
-        'card_code' => '卡编号'
+        'card_code' => '卡编号', 
+        'share_url' => '分享链接'
     ]
 ];

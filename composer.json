@@ -13,6 +13,7 @@
     "ext-json": "^1.6",
     "barryvdh/laravel-ide-helper": "^2.6",
     "box/spout": "^3.0",
+    "endroid/qr-code": "^3.6",
     "guzzlehttp/guzzle": "^6.3",
     "illuminate/redis": "^5.8",
     "laravel/lumen-framework": "5.8.*",

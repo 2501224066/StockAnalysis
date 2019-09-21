@@ -27,6 +27,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->group(['middleware' => 'checkUserLoginToken'], function () use ($router) {
         $router->get('/user', 'UserController@userInfo'); // 用户信息
+        $router->get('/user/saveShare', 'UserController@saveShare'); // 用户保存分享
 
         $router->get('/shares', 'SharesController@sharesInfo'); // 股票信息
 
