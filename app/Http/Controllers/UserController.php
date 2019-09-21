@@ -86,7 +86,7 @@ class UserController extends Controller
     public function saveShare(Request $request)
     {   
         $this->verify($request, [
-            'share_url' => ['required', 'active_url'],
+            'share_url' => ['required', 'regex:/^http.*/'],
         ]);
 
         ob_start();
