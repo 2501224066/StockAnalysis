@@ -91,11 +91,11 @@ class UserController extends Controller
 
         ob_start();
         $this->userService->synthesisShareImg($request);
-        $s = ob_get_clean();
+        $down_file = ob_get_clean();
         ob_clean ();
         header("content-type:image/jpeg");
         header('Content-Disposition: attachment; filename="share.png"');
-        header('Content-Length: ' . strlen($s));
-        echo $s;
+        header('Content-Length: ' . strlen($down_file));
+        echo $down_file;
     }
 }

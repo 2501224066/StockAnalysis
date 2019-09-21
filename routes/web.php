@@ -18,6 +18,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('/user', 'UserController@createUser'); // 注册
     $router->post('/user/login', 'UserController@login'); // 登录
     $router->post('/user/resetPass', 'UserController@resetPass'); // 重置密码
+    $router->get('/user/saveShare', 'UserController@saveShare'); // 用户保存分享
 
     $router->get('/shares/select', 'SharesController@select'); // 搜索股票
 
@@ -27,8 +28,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->group(['middleware' => 'checkUserLoginToken'], function () use ($router) {
         $router->get('/user', 'UserController@userInfo'); // 用户信息
-        $router->get('/user/saveShare', 'UserController@saveShare'); // 用户保存分享
-
+       
         $router->get('/shares', 'SharesController@sharesInfo'); // 股票信息
 
         $router->get('/card', 'CardController@useCard'); // 用户使用卡
