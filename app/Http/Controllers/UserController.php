@@ -81,21 +81,4 @@ class UserController extends Controller
         $user_info = $this->userService->getUserInfo($request);
         return $this->success($user_info);
     }
-
-    // 用户保存分享
-    public function saveShare(Request $request)
-    {   
-        $this->verify($request, [
-            'share_url' => ['required', 'regex:/^http.*/'],
-        ]);
-
-        ob_start();
-        $this->userService->synthesisShareImg($request);
-        $down_file = ob_get_clean();
-        ob_clean ();
-        header("content-type:image/jpeg");
-        header('Content-Disposition: attachment; filename="share.png"');
-        header('Content-Length: ' . strlen($down_file));
-        echo $down_file;
-    }
 }

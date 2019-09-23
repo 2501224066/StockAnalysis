@@ -18,7 +18,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('/user', 'UserController@createUser'); // 注册
     $router->post('/user/login', 'UserController@login'); // 登录
     $router->post('/user/resetPass', 'UserController@resetPass'); // 重置密码
-    $router->get('/user/saveShare', 'UserController@saveShare'); // 用户保存分享
+    
+    $router->get('/qrShare', 'QrShareController@index'); // 保存分享图片
 
     $router->get('/shares/select', 'SharesController@select'); // 搜索股票
 
