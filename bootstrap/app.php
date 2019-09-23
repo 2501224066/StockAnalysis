@@ -66,6 +66,7 @@ $app->middleware([
 $app->routeMiddleware([
     'checkUserLoginToken' => App\Http\Middleware\CheckUserLoginToken::class, // *检查用户登录中间件
     'checkAgentLoginToken' => App\Http\Middleware\CheckAgentLoginToken::class, // *检查代理登录中间件
+    'checkAdminLoginToken' => App\Http\Middleware\CheckAdminLoginToken::class, // *检查后台登录中间件
 ]);
 
 /*

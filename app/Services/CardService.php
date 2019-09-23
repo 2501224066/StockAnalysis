@@ -53,4 +53,9 @@ class CardService
     {
         return $this->cardRepository->createCardRecord($request->user->user_id, config('services.user.get_create_card_record_num'));
     }
+
+    // 所有卡片
+    public function allCard(){
+        return $this->cardRepository->allCard();
+    }
 }

@@ -145,4 +145,15 @@ class UserService
         $user_info->card_buy_way = $this->systemSettingRepository->cardBuyWay();
         return $user_info;
     }
+
+    // 所有用户
+    public function allUser()
+    {
+        $all_user = $this->userRepository->allUser();
+        foreach($all_user as &$user){
+            $user->selected_num = $this->userSelectRepository->selectedCount($user->user_id);
+        }
+
+        return $all_user;
+    }
 }

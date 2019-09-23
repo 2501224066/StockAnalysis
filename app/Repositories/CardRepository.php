@@ -63,12 +63,12 @@ class CardRepository
     public function createCardRecord($user_id, $len)
     {
         $query = $this->card->where('create_user_id', $user_id)
-        ->orderBy('created_at', 'DESC')
-        ->select('code', 'status', 'add_select_num', 'created_at');
-        
-        if($len){
+            ->orderBy('created_at', 'DESC')
+            ->select('code', 'status', 'add_select_num', 'created_at');
+
+        if ($len) {
             return $query->limit($len)->get();
-        }else{
+        } else {
             return $query->paginate();
         }
     }
@@ -77,5 +77,14 @@ class CardRepository
     public function useCardGetSelectNum($user_id)
     {
         return $this->card->where('use_user_id', $user_id)->sum('add_select_num');
+    }
+
+    // 所有卡片
+    public function allCard()
+    {
+        return $this->card->where('id', '!=', 0)
+            ->orderBy('status', 'ASC')
+            ->orderBy('add_select_num', 'ASC')
+            ->paginate();
     }
 }

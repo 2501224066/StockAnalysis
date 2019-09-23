@@ -94,4 +94,12 @@ class UserRepository
             ->select('phone', 'created_at')
             ->paginate();
     }
+
+    // 所有用户
+    public function allUser()
+    {
+        return $this->user->where('user_id', '!=', 0)
+            ->orderBy('created_at', 'DESC')
+            ->paginate();
+    }
 }

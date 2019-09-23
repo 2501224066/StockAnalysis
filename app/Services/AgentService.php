@@ -64,4 +64,15 @@ class AgentService
 
         return $belongAgent;
     }
+
+    // 所有代理
+    public function allAgent()
+    {
+        $all_agent = $this->agentRepository->allAgent();
+        foreach($all_agent as &$agent){
+            $agent->has_user_count = $this->userRepository->belongAgentCount($agent->agent_id);
+        }
+
+        return $all_agent;
+    }
 }

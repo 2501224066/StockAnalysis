@@ -117,6 +117,7 @@ return [
         'keyword' => '关键字',
         'shares_code' => '股票编码',
         'card_code' => '卡编号', 
-        'share_url' => '分享链接'
+        'share_url' => '分享链接',
+        'username' => '账号'
     ]
 ];

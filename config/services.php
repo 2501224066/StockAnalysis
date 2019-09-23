@@ -21,5 +21,10 @@ return [
     'user' => [
         'get_create_card_record_num' => env('USER_GET_CREATE_CARD_RECORD_NUM'),
         'save_share_background_img' => env('SAVE_SHARE_BACKGROUND_IMG')
+    ],
+
+    'admin' => [
+        'username' => env('ADMIN_USERNAME'),
+        'password' => env('ADMIN_PASSWORD')
     ]
 ];
