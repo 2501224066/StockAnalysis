@@ -75,4 +75,10 @@ class AgentService
 
         return $all_agent;
     }
+
+    // 创建代理
+    public function create(Request $request)
+    {
+        $this->agentRepository->create($request->phone, $request->password, $request->weixin, $request->weixin_qr);
+    }
 }

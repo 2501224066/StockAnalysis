@@ -18,7 +18,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('/user', 'UserController@createUser'); // 用户注册
     $router->post('/user/login', 'UserController@login'); // 用户登录
     $router->post('/user/resetPass', 'UserController@resetPass'); // 重置密码
-    
+
     $router->get('/qrShare', 'QrShareController@index'); // 保存分享图片
 
     $router->get('/shares/select', 'SharesController@select'); // 搜索股票
@@ -27,7 +27,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->group(['middleware' => 'checkUserLoginToken'], function () use ($router) {
         $router->get('/user', 'UserController@userInfo'); // 用户信息
-       
+
         $router->get('/shares', 'SharesController@sharesInfo'); // 股票信息
 
         $router->get('/card', 'CardController@useCard'); // 用户使用卡
@@ -50,11 +50,11 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->get('/admin/allUser', 'AdminController@allUser'); // 所有用户
         $router->get('/admin/allAgent', 'AdminController@allAgent'); // 所有代理
         $router->get('/admin/allCard', 'AdminController@allCard'); // 所有卡片
+        
+        $router->post('/agent', 'AgentController@create'); // 创建代理
+
+        $router->post('/admin/card/{grade}/{count}', function ($grade, $count) { // 创建卡
+            Artisan::call('card:create', ['grade' => $grade, 'count' => $count]);
+        });
     });
 });
-
-
-
-//$router->post('/card/{grade}/{count}', function ($grade, $count) { // 系统创建卡
-    //Artisan::call('card:create', ['grade' => $grade, 'count' => $count]);
-//});
