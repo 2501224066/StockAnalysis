@@ -43,7 +43,7 @@ class SharesDataImport extends Command
                 $rowArr = $row->toArray();
 
                 // 从第二行开始解析
-                if ($kk < 3681) {
+                if ($kk < 2) {
                     continue;
                 }
 
@@ -66,6 +66,7 @@ class SharesDataImport extends Command
                             Shares::where('code', $rowArr[0])->update([
                                 'simple_code'      => $rowArr[1] !== null  ?  $rowArr[1] : null, // B
                                 'name'             => $rowArr[2] !== null  ?  $rowArr[2] : null, // C
+                                'industry'         => $rowArr[29] !== null  ?  $rowArr[29] : null, // AD
                                 'grows_power'      => $rowArr[3] !== null  ? sprintf("%.2f", $rowArr[3])  : null, // D
                                 'financial_safety' => $rowArr[4] !== null  ? sprintf("%.2f", $rowArr[4])  : null, // E
                                 'profit_power'     => $rowArr[5] !== null  ? sprintf("%.2f", $rowArr[5]) : null, // F
@@ -83,6 +84,7 @@ class SharesDataImport extends Command
                                 'code' => $rowArr[0], // A
                                 'simple_code'      => $rowArr[1] !== null  ?  $rowArr[1] : null, // B
                                 'name'             => $rowArr[2] !== null  ?  $rowArr[2] : null, // C
+                                'industry'         => $rowArr[29] !== null  ?  $rowArr[29] : null, // AD
                                 'grows_power'      => $rowArr[3] !== null  ? sprintf("%.2f", $rowArr[3])  : null, // D
                                 'financial_safety' => $rowArr[4] !== null  ? sprintf("%.2f", $rowArr[4])  : null, // E
                                 'profit_power'     => $rowArr[5] !== null  ? sprintf("%.2f", $rowArr[5]) : null, // F
