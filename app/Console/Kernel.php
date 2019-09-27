@@ -13,8 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //Commands\SharesDataImport::class,
-        Commands\CardCreate::class
+        // Commands\SharesDataImport::class,
+        Commands\CardCreate::class,
     ];
 
     /**

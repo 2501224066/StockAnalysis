@@ -56,10 +56,12 @@ class AgentService
     {
         $belongAgent = $this->userRepository->belongAgent($request->agent->agent_id);
 
-        // 添加使用卡获得总次数
         foreach($belongAgent as &$v){
             $user_info = $this->userRepository->first(['phone'=>$v->phone]);
+            // 添加使用卡获得总次数
             $v->use_card_get_select_num = $this->cardRepository->useCardGetSelectNum($user_info->user_id);
+            // 添加邀请人数
+            $v->invite_user_num = $this->userRepository->invite_user_num($user_info->user_id);
         }
 
         return $belongAgent;

@@ -7,6 +7,7 @@ use App\Http\Repositories\CardRepository;
 use App\Http\Repositories\SystemSettingRepository;
 use Illuminate\Console\Command;
 
+// 创建卡片
 class CardCreate extends Command
 {
     protected $signature = 'card:create {grade} {count}';

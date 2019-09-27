@@ -75,6 +75,12 @@ class UserRepository
         }
     }
 
+    // 绑定邀请人
+    public function bindInviteUser($user_id, $invite_user_id)
+    {
+        $this->user->where('user_id', $user_id)->update(['invite_user_id' => $invite_user_id]);
+    }
+
     // 绑定代理
     public function bindAgent($user_id, $agent_id)
     {
@@ -101,5 +107,11 @@ class UserRepository
         return $this->user->where('user_id', '!=', 0)
             ->orderBy('created_at', 'DESC')
             ->paginate();
+    }
+
+    // 邀请用户数量
+    public function invite_user_num($user_id)
+    {
+        return  $this->user->where('invite_user_id', $user_id)->count();
     }
 }

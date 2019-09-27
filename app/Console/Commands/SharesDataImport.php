@@ -14,9 +14,10 @@ use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
+// 股票数据导入更新
 class SharesDataImport extends Command
 {
-    protected $signature = 'shares_data:import';
+    protected $signature = 'shares:import';
 
     protected $description = 'import shares data to database';
 

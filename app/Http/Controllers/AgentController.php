@@ -37,8 +37,8 @@ class AgentController extends Controller
     // 拥有用户
     public function hasUser(Request $request)
     {
-        $has_user_phone = $this->agentService->hasUser($request);
-        return $this->success(['has_user_phone' => $has_user_phone]);
+        $has_user = $this->agentService->hasUser($request);
+        return $this->success(['has_user' => $has_user]);
     }
 
     // 创建代理

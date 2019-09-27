@@ -58,6 +58,11 @@ class UserService
             // 被邀请人获得邀请奖励
             $this->inviteReward($user_id);
 
+            // 被邀请人绑定邀请人
+            if ($invite_user_info->agent_id) {
+                $this->userRepository->bindInviteUser($user_id, $invite_user_info->user_id);
+            }
+
             // 被邀请人绑定邀请人上级代理
             if ($invite_user_info->agent_id) {
                 $this->userRepository->bindAgent($user_id, $invite_user_info->agent_id);
@@ -151,7 +156,10 @@ class UserService
     {
         $all_user = $this->userRepository->allUser();
         foreach ($all_user as &$user) {
+            // 添加查询次数
             $user->selected_num = $this->userSelectRepository->selectedCount($user->user_id);
+            // 添加邀请人数
+            $user->invite_user_num = $this->userRepository->invite_user_num($user->user_id);
         }
 
         return $all_user;
