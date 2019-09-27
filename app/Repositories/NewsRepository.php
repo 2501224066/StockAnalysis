@@ -18,7 +18,7 @@ class NewsRepository
     public function getNews()
     {
         return $this->news
-            ->select('title', 'content', 'created_at')
+            ->select('title', 'content', 'color', 'created_at')
             ->orderBy('created_at', 'DESC')
             ->paginate();
     }

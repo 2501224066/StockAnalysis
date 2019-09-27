@@ -41,7 +41,8 @@ class GetNews extends Command
                 'seq' => $v->seq
             ],[
                 'title' => $v->title,
-                'content' => $v->digest
+                'content' => $v->digest,
+                'color' => $v->color
             ]);
         }
     }
