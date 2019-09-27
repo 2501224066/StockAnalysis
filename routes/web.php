@@ -25,6 +25,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->get('/user_level', 'UserLevelController@index'); // 等级权益
 
+    $router->get('/news', 'NewsController@index'); // 获取新闻
+
     $router->group(['middleware' => 'checkUserLoginToken'], function () use ($router) {
         $router->get('/user', 'UserController@userInfo'); // 用户信息
 
