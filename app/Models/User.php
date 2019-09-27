@@ -35,6 +35,8 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereLevel($value)
  * @property int|null $agent_id 代理id
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereAgentId($value)
+ * @property int|null $invite_user_id 邀请人id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereInviteUserId($value)
  */
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {

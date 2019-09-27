@@ -52,6 +52,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read int|null $revenue_growth_rate_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\SharesSalesGrossMargin[] $salesGrossMargin
  * @property-read int|null $sales_gross_margin_count
+ * @property string|null $industry 行业
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Shares whereIndustry($value)
  */
 class Shares extends Model
 {
