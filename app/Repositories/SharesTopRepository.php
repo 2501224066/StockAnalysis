@@ -30,4 +30,10 @@ class SharesTopRepository
             throw new Exception('创建失败');
         }
     }
+
+    // 优质股票当前时间档次
+    public function nowDateGrade()
+    {
+        return $this->shares_top->limit(5)->orderBy('date_grade', 'DESC')->pluck('date_grade');
+    }
 }

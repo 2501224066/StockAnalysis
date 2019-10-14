@@ -27,6 +27,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->get('/news', 'NewsController@index'); // 获取新闻
 
+    $router->get('/sharesTop/nowDateGrade', 'SharesTopController@nowDateGrade'); // 优质股票当前时间档次
+
     $router->group(['middleware' => 'checkUserLoginToken'], function () use ($router) {
         $router->get('/user', 'UserController@userInfo'); // 用户信息
 
@@ -38,7 +40,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
         $router->post('/sharesTop/unlock', 'SharesTopController@unlock'); // 解锁优质股票
         $router->get('/sharesTop', 'SharesTopController@index'); // 优质股票信息
-        $router->get('/sharesTop/unlockRecord', 'SharesTopController@unlockRecord'); // 优质股票解锁记录s
+        $router->get('/sharesTop/unlockRecord', 'SharesTopController@unlockRecord'); // 优质股票解锁记录
     });
 
     $router->post('/agent/login', 'AgentController@login'); // 代理登录

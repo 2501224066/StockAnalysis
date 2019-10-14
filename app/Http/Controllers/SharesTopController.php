@@ -43,4 +43,11 @@ class SharesTopController extends Controller
         $unlockRecord = $this->sharesTopService->unlockRecord($request);
         return $this->success(['unlockRecord' => $unlockRecord]);
     }
+
+    // 优质股票当前时间档次
+    public function nowDateGrade()
+    {
+        $nowDateGrade = $this->sharesTopService->nowDateGrade();
+        return $this->success(['nowDateGrade' => $nowDateGrade]);
+    }
 }

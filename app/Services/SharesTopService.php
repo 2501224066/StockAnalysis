@@ -41,7 +41,7 @@ class SharesTopService
         if (!$d) {
             throw new Exception("未解锁此项数据");
         }
-        
+
         // json 转数组
         return json_decode($shares_top->top_content, true);
     }
@@ -84,9 +84,15 @@ class SharesTopService
     {
         $user_shares_top = $this->userSharesTopRepository->unlockRecord($request->user->user_id);
         $record = [];
-        foreach($user_shares_top as $v) {
+        foreach ($user_shares_top as $v) {
             $record[] = $this->sharesTopRepository->first(['shares_top_id' => $v->shares_top_id])->date_grade;
         }
         return $record;
+    }
+
+    // 优质股票当前时间档次
+    public function nowDateGrade()
+    {
+        return $this->sharesTopRepository->nowDateGrade();
     }
 }
