@@ -79,6 +79,42 @@ class SharesTopService
         });
     }
 
+    // 全部解锁优质股票
+    public function unlockAllSharesTop(Request $request)
+    {
+        // 全部解锁所需查询次数
+        $depele_select_num = $this->systemSettingRepository->val('all_shares_top_depele_select_num');
+        // 判断查询次数是否足够
+        if ($request->user->select_num < $depele_select_num) {
+            throw new Exception("解锁此项数据所需查询次数不足");
+        }
+
+        // 当前所有时间档次 id
+        $nowDateGrade = $this->sharesTopRepository->nowDateGrade('shares_top_id');
+
+        // 查询是否已解锁
+        foreach ($nowDateGrade as $shares_top_id) {
+            $d = $this->userSharesTopRepository->first(['user_id' => $request->user->user_id, 'shares_top_id' => $shares_top_id]);
+            if ($d) {
+                throw new Exception("已解锁此项数据");
+            }
+        }
+
+        DB::transaction(function () use ($request, $depele_select_num, $nowDateGrade) {
+            try {
+                // 扣除查询次数
+                $this->userRepository->selectNumDown($request->user->user_id, $depele_select_num);
+                // 添加解锁记录
+                foreach ($nowDateGrade as $shares_top_id) {
+                    $this->userSharesTopRepository->addUnlockRecord($request->user->user_id, $shares_top_id);
+                }
+            } catch (Exception $e) {
+                Log::info('用户解锁全部优质股票失败：' . $e->getMessage());
+                throw new Exception('操作失败');
+            }
+        });
+    }
+
     // 优质股票解锁记录
     public function unlockRecord(Request $request)
     {
@@ -93,6 +129,6 @@ class SharesTopService
     // 优质股票当前时间档次
     public function nowDateGrade()
     {
-        return array_reverse($this->sharesTopRepository->nowDateGrade()->toArray());
+        return array_reverse($this->sharesTopRepository->nowDateGrade('shares_top')->toArray());
     }
 }

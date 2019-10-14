@@ -37,6 +37,13 @@ class SharesTopController extends Controller
         return $this->success();
     }
 
+    // 全部解锁优质股票
+    public function unlockAll(Request $request)
+    {
+        $this->sharesTopService->unlockAllSharesTop($request);
+        return $this->success();
+    }
+
     // 优质股票解锁记录
     public function unlockRecord(Request $request)
     {
