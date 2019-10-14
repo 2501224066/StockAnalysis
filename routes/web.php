@@ -38,7 +38,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->get('/card/createCardRecord', 'CardController@createCardRecord'); // 用户创建卡记录
 
         $router->post('/sharesTop/unlock', 'SharesTopController@unlock'); // 解锁优质股票
-        $router->post('/sharesTop/unlock/all', 'SharesTopController@unlockAll'); // 全部解锁优质股票
+        $router->post('/sharesTop/unlock/all', 'SharesTopController@unlockAll'); // 解锁全部优质股票
         $router->get('/sharesTop', 'SharesTopController@index'); // 优质股票信息
         $router->get('/sharesTop/unlockRecord', 'SharesTopController@unlockRecord'); // 优质股票解锁记录
     });

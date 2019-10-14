@@ -96,7 +96,7 @@ class SharesTopService
         foreach ($nowDateGrade as $shares_top_id) {
             $d = $this->userSharesTopRepository->first(['user_id' => $request->user->user_id, 'shares_top_id' => $shares_top_id]);
             if ($d) {
-                throw new Exception("已解锁此项数据");
+                throw new Exception("已有数据解锁过，不可使用此操作");
             }
         }
 
