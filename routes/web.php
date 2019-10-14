@@ -9,7 +9,6 @@
 
 use Illuminate\Support\Facades\Artisan;
 
-// 外部接口
 $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->get('/sms', 'SmsController@index'); // 发送手机验证码
