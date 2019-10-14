@@ -12,7 +12,7 @@ class GetNews extends Command
 {
     protected $signature = 'news:get';
 
-    protected $description = 'get news other website';
+    protected $description = '抓取新闻资讯';
 
     public function __construct()
     {

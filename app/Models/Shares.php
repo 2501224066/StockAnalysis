@@ -54,6 +54,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read int|null $sales_gross_margin_count
  * @property string|null $industry 行业
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Shares whereIndustry($value)
+ * @property float|null $end_first_quarter_every_shares_profit 截止第一季度每股盈利
+ * @property float|null $end_third_quarter_every_shares_profit 截止第三季度每股盈利
+ * @property float|null $end_fourth_quarter_every_shares_profit 截止第四季度每股盈利
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Shares whereEndFirstQuarterEverySharesProfit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Shares whereEndFourthQuarterEverySharesProfit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Shares whereEndThirdQuarterEverySharesProfit($value)
  */
 class Shares extends Model
 {

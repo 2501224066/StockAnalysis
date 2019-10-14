@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         // Commands\SharesDataImport::class,
         Commands\CardCreate::class,
-        Commands\GetNews::class
+        Commands\GetNews::class,
+        Commands\SharesTopCreate::class
     ];
 
     /**

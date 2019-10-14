@@ -12,7 +12,7 @@ class CardCreate extends Command
 {
     protected $signature = 'card:create {grade} {count}';
 
-    protected $description = 'create specified quantity card';
+    protected $description = '创建指定数量卡';
 
     protected $cardRepository;
     protected $systemSettingRepository;

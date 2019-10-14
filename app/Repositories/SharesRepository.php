@@ -43,4 +43,15 @@ class SharesRepository
             ->limit(10)
             ->get(['name', 'code']);
     }
+
+    // 优质股票内容
+    public function topContent($offset, $limit)
+    {
+        $top =  $this->shares
+            ->orderBy('score', 'DESC')
+            ->offset($offset)
+            ->limit($limit)
+            ->get(['name', 'code']);
+        return json_encode($top);
+    }
 }
