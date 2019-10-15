@@ -35,7 +35,7 @@ class SharesService
     // 股票信息
     public function shareInfo(Request $request)
     {
-        $shares_info = $this->sharesRepository->first(['code' => $request->shares_code]);
+        $shares_info = $this->sharesRepository->firstWithOther(['code' => $request->shares_code]);
         $this->userSelectRepository->recordSelect($request->user->user_id, $shares_info->name, $shares_info->code);
         return $shares_info;
     }

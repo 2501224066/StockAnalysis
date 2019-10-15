@@ -20,11 +20,12 @@ class SharesTopRepository
     }
 
     // 创建优质股票数据
-    public function createSharesTop($date_grade, $top_content)
+    public function createSharesTop($date_grade, $top_content, $industry_count)
     {
         $d = $this->shares_top->create([
             'date_grade' => $date_grade,
-            'top_content' => $top_content
+            'top_content' => $top_content,
+            'industry_count' => $industry_count
         ]);
         if (!$d) {
             throw new Exception('创建失败');
@@ -32,8 +33,8 @@ class SharesTopRepository
     }
 
     // 优质股票当前时间档次
-    public function nowDateGrade($filed)
+    public function nowDateGrade()
     {
-        return $this->shares_top->limit(5)->orderBy('date_grade', 'DESC')->pluck($filed);
+        return $this->shares_top->limit(5)->orderBy('date_grade', 'DESC')->get(['shares_top_id', 'date_grade', 'industry_count']);
     }
 }

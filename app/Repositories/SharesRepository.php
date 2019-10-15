@@ -16,23 +16,29 @@ class SharesRepository
     // 获取一行数据
     public function first($where)
     {
+        return $this->shares->where($where) ->first();
+    }
+
+    // 获取一行数据附带相关数据
+    public function firstWithOther($where)
+    {
         return $this->shares->where($where)
-            ->with(['profit' => function ($query) {
-                $query->orderBy('time_node', 'DESC')->limit(12);
-            }])
-            ->with(['profitGrowthRate' => function ($query) {
-                $query->orderBy('time_node', 'DESC')->limit(12);
-            }])
-            ->with(['revenue' => function ($query) {
-                $query->orderBy('time_node', 'DESC')->limit(12);
-            }])
-            ->with(['revenueGrowthRate' => function ($query) {
-                $query->orderBy('time_node', 'DESC')->limit(12);
-            }])
-            ->with(['salesGrossMargin' => function ($query) {
-                $query->orderBy('time_node', 'DESC')->limit(12);
-            }])
-            ->first();
+        ->with(['profit' => function ($query) {
+            $query->orderBy('time_node', 'DESC')->limit(12);
+        }])
+        ->with(['profitGrowthRate' => function ($query) {
+            $query->orderBy('time_node', 'DESC')->limit(12);
+        }])
+        ->with(['revenue' => function ($query) {
+            $query->orderBy('time_node', 'DESC')->limit(12);
+        }])
+        ->with(['revenueGrowthRate' => function ($query) {
+            $query->orderBy('time_node', 'DESC')->limit(12);
+        }])
+        ->with(['salesGrossMargin' => function ($query) {
+            $query->orderBy('time_node', 'DESC')->limit(12);
+        }])
+        ->first();
     }
 
     // 搜索股票
@@ -52,6 +58,6 @@ class SharesRepository
             ->offset($offset)
             ->limit($limit)
             ->get(['name', 'code', 'score']);
-        return json_encode($top);
+        return $top;
     }
 }

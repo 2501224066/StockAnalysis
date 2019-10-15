@@ -7,6 +7,7 @@ use App\Http\Repositories\SharesTopRepository;
 use App\Http\Repositories\UserSharesTopRepository;
 use App\Http\Repositories\SystemSettingRepository;
 use App\Http\Repositories\UserRepository;
+use App\Http\Repositories\SharesRepository;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -18,17 +19,20 @@ class SharesTopService
     protected $userSharesTopRepository;
     protected $systemSettingRepository;
     protected $userRepository;
+    protected $sharesRepository;
 
     public function __construct(
         SharesTopRepository $sharesTopRepository,
         UserSharesTopRepository $userSharesTopRepository,
         SystemSettingRepository $systemSettingRepository,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        SharesRepository $sharesRepository
     ) {
         $this->sharesTopRepository = $sharesTopRepository;
         $this->userSharesTopRepository = $userSharesTopRepository;
         $this->systemSettingRepository = $systemSettingRepository;
         $this->userRepository = $userRepository;
+        $this->sharesRepository = $sharesRepository;
     }
 
     // 获取优质股票
@@ -89,20 +93,20 @@ class SharesTopService
             throw new Exception("解锁此项数据所需查询次数不足");
         }
 
-        // 当前所有时间档次 id
-        $nowDateGrade = $this->sharesTopRepository->nowDateGrade('shares_top_id');
+        // 当前所有时间档次
+        $nowDateGrade = $this->sharesTopRepository->nowDateGrade();
 
         // 是否已经全部解锁
         $allUnlockStatus = 1;
-        foreach ($nowDateGrade as $shares_top_id) {
-            $d = $this->userSharesTopRepository->first(['user_id' => $request->user->user_id, 'shares_top_id' => $shares_top_id]);
+        foreach ($nowDateGrade as $v) {
+            $d = $this->userSharesTopRepository->first(['user_id' => $request->user->user_id, 'shares_top_id' => $v->shares_top_id]);
             if ($d) {
                 $allUnlockStatus *= 1;
             } else {
                 $allUnlockStatus *= 0;
             }
         }
-        if($allUnlockStatus == 1){
+        if ($allUnlockStatus == 1) {
             throw new Exception("已经全部解锁过，不可重复操作");
         }
 
