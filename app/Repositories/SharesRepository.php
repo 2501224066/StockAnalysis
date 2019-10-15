@@ -51,7 +51,7 @@ class SharesRepository
             ->orderBy('score', 'DESC')
             ->offset($offset)
             ->limit($limit)
-            ->get(['name', 'code']);
+            ->get(['name', 'code', 'score']);
         return json_encode($top);
     }
 }
