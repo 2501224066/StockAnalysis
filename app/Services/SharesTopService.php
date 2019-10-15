@@ -129,6 +129,6 @@ class SharesTopService
     // 优质股票当前时间档次
     public function nowDateGrade()
     {
-        return array_reverse($this->sharesTopRepository->nowDateGrade('shares_top')->toArray());
+        return array_reverse($this->sharesTopRepository->nowDateGrade('date_grade')->toArray());
     }
 }
