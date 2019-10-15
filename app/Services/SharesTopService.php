@@ -92,12 +92,18 @@ class SharesTopService
         // 当前所有时间档次 id
         $nowDateGrade = $this->sharesTopRepository->nowDateGrade('shares_top_id');
 
-        // 查询是否已解锁
+        // 是否已经全部解锁
+        $allUnlockStatus = 1;
         foreach ($nowDateGrade as $shares_top_id) {
             $d = $this->userSharesTopRepository->first(['user_id' => $request->user->user_id, 'shares_top_id' => $shares_top_id]);
             if ($d) {
-                throw new Exception("已有数据解锁过，不可使用此操作");
+                $allUnlockStatus *= 1;
+            } else {
+                $allUnlockStatus *= 0;
             }
+        }
+        if($allUnlockStatus == 1){
+            throw new Exception("已经全部解锁过，不可重复操作");
         }
 
         DB::transaction(function () use ($request, $depele_select_num, $nowDateGrade) {

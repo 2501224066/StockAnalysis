@@ -22,10 +22,10 @@ class UserSharesTopRepository
     // 添加解锁记录
     public function addUnlockRecord($user_id, $shares_top_id)
     {
-        $this->userSharesTop->create([
+        $this->userSharesTop->updateOrCreate([
             'user_id' => $user_id,
             'shares_top_id' => $shares_top_id
-        ]);
+        ],[]);
     }
 
     // 用户解锁记录
