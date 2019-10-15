@@ -39,7 +39,7 @@ class SharesTopCreate extends Command
         // 5 个档次
         for ($grade = 1; $grade <= 5; $grade++) {
             $date_grade = $date . '-' . $grade;
-            $top_content = $this->sharesRepository->topContent(($grade - 1) * 20, $grade * 20);
+            $top_content = $this->sharesRepository->topContent(($grade - 1) * 20, 20);
 
             $this->sharesTopRepository->createSharesTop($date_grade, $top_content);
         }
