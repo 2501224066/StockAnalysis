@@ -115,8 +115,8 @@ class SharesTopService
                 // 扣除查询次数
                 $this->userRepository->selectNumDown($request->user->user_id, $depele_select_num);
                 // 添加解锁记录
-                foreach ($nowDateGrade as $shares_top_id) {
-                    $this->userSharesTopRepository->addUnlockRecord($request->user->user_id, $shares_top_id);
+                foreach ($nowDateGrade as $v) {
+                    $this->userSharesTopRepository->addUnlockRecord($request->user->user_id, $v->shares_top_id);
                 }
             } catch (Exception $e) {
                 Log::info('用户解锁全部优质股票失败：' . $e->getMessage());
