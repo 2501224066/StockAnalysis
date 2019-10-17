@@ -24,8 +24,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->get('/user_level', 'UserLevelController@index'); // 等级权益
 
-    $router->get('/news', 'NewsController@index'); // 获取新闻
-
     $router->get('/sharesTop/nowDateGrade', 'SharesTopController@nowDateGrade'); // 优质股票当前时间档次
 
     $router->group(['middleware' => 'checkUserLoginToken'], function () use ($router) {
