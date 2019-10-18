@@ -31,7 +31,7 @@ class UserLevelService
         $level_info = $this->userLevelRepository->getLevel($selected_num);
         if (($user_info->level == null) || ($level_info->level != $user_info->level)) {
             $user_info->level = $level_info->level;
-            $user_info->select_num = $user_info->select_num + $level_info->reward_select_num;
+            $user_info->select_num += $level_info->reward_select_num;
             $user_info->save();
             Log::info($user_info->phone . '达到' . $level_info->level . '获得' . $level_info->reward_select_num . '次查询奖励');
         }
